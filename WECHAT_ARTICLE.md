@@ -8,11 +8,19 @@
 >【!info】  
 >**原文来源**: [Supertonic TTS Enhanced](https://github.com/neosun100/supertonic-tts-enhanced)  
 >**项目地址**: https://github.com/neosun100/supertonic-tts-enhanced  
->**在线演示**: https://huggingface.co/spaces/Supertone/supertonic
+>**在线演示**: 🌐 **立即体验** → https://supertonic.aws.xin/  
+>**API文档**: 📚 **Swagger文档** → https://supertonic.aws.xin/docs
 
->**核心价值**: 本文深度解析 Supertonic TTS 的技术突破、性能优势、完整部署方案和实战应用。无论你是技术决策者、开发者还是AI研究者，都能在5分钟内掌握这个**全球最快的开源TTS系统**的核心要点和落地方法。
+>**核心价值**: 本文深度解析 Supertonic TTS 的技术突破、性能优势、完整部署方案和实战应用。无论你是技术决策者、开发者还是AI研究者，都能在5分钟内掌握这个**全球最快的开源TTS系统**的核心要点和落地方法。**现在就可以访问在线演示，无需安装即可体验极速TTS！**
 
 ![封面图](https://img.aws.xin/uPic/qVp89F.png)
+
+---
+
+> **🎯 快速体验**  
+> 不想看长篇大论？直接访问在线演示，3秒体验极速TTS！  
+> **👉 https://supertonic.aws.xin/**  
+> 支持4种语音风格、实时参数调节、在线播放预览，无需安装即可使用！
 
 ---
 
@@ -29,10 +37,13 @@
 
 ✅ Docker一键部署  
 ✅ FastAPI RESTful API（带Swagger文档）  
-✅ 美观的Web UI界面  
+✅ 美观的Web UI界面（**支持在线体验**）  
 ✅ 4种专业语音风格  
 ✅ GPU加速支持  
-✅ 完整的API客户端示例
+✅ 完整的API客户端示例  
+✅ **在线演示平台**：无需安装即可体验所有功能
+
+🌐 **立即体验** → https://supertonic.aws.xin/
 
 ---
 
@@ -102,10 +113,15 @@ Supertonic最令人印象深刻的能力是**自动处理复杂文本**：
 
 ### 3. 完全隐私保护：设备端运行
 
-- 🔒 **零数据上传**：所有处理在本地完成
-- ⚡ **零延迟**：无需网络请求
+- 🔒 **零数据上传**：所有处理在本地完成（本地部署）
+- ⚡ **零延迟**：无需网络请求（本地部署）
 - 💰 **零API费用**：完全免费使用
-- 🛡️ **零隐私风险**：敏感内容不会离开你的设备
+- 🛡️ **零隐私风险**：敏感内容不会离开你的设备（本地部署）
+- 🌐 **在线体验**：提供公开演示平台，方便快速测试和体验
+
+💡 **部署建议**：
+- **测试体验**：使用在线演示 https://supertonic.aws.xin/
+- **生产环境**：本地Docker部署，确保数据安全
 
 ---
 
@@ -175,10 +191,15 @@ docker-compose ps
 docker-compose logs -f
 ```
 
-**服务地址**：
+**服务地址**（本地部署）：
 - 🌐 **Web UI**: http://localhost:8501
 - 🔌 **API服务**: http://localhost:8088
 - 📚 **Swagger文档**: http://localhost:8088/docs
+
+**在线体验**（无需安装）：
+- 🌐 **在线Web UI**: https://supertonic.aws.xin/
+- 📚 **在线API文档**: https://supertonic.aws.xin/docs
+- 💡 **提示**: 在线演示支持所有功能，包括4种语音风格、参数调节、实时生成等
 
 ### ✅ 验证部署
 
@@ -385,6 +406,19 @@ test();
 
 ![Web UI界面](https://img.aws.xin/uPic/qVp89F.png)
 
+### 🌐 在线体验（推荐）
+
+**无需安装，立即体验** → https://supertonic.aws.xin/
+
+在线演示提供完整功能：
+- ✅ 4种语音风格（M1/M2/F1/F2）实时切换
+- ✅ 参数实时调节（去噪步数、语速）
+- ✅ 在线播放预览
+- ✅ 一键下载音频
+- ✅ 生成历史记录
+
+### 💻 本地部署
+
 访问 `http://localhost:8501` 即可使用美观的Web界面：
 
 ### 核心功能
@@ -398,11 +432,16 @@ test();
 
 ### 使用流程
 
-1. **选择语音风格**：左侧边栏选择M1/M2/F1/F2
-2. **调整参数**：去噪步骤（推荐5）、语速（推荐1.05）
-3. **输入文本**：支持长文本自动分段
-4. **生成语音**：点击"🎬 生成语音"按钮
-5. **播放/下载**：使用内嵌播放器试听或下载
+1. **访问界面**：打开 https://supertonic.aws.xin/ 或本地 http://localhost:8501
+2. **选择语音风格**：左侧边栏选择M1/M2/F1/F2
+3. **调整参数**：去噪步骤（推荐5）、语速（推荐1.05）
+4. **输入文本**：支持长文本自动分段（⚠️ 当前仅支持英文）
+5. **生成语音**：点击"🎬 生成语音"按钮
+6. **播放/下载**：使用内嵌播放器试听或下载
+
+💡 **快速上手**：
+- 在线体验：直接访问 https://supertonic.aws.xin/，无需任何配置
+- 本地部署：按照"3步快速部署"章节完成Docker部署
 
 ---
 
@@ -533,17 +572,19 @@ def announce(text, priority="normal"):
 ### 场景3：多语言内容本地化
 
 ```python
-# 支持多语言文本
+# 支持多语言文本（当前版本主要支持英文）
 languages = {
-    "中文": "F1",
-    "English": "M1",
-    "日本語": "F2"
+    "English": "M1",  # 完全支持
+    # "中文": "F1",   # 开发中
+    # "日本語": "F2"  # 开发中
 }
 
 def localize_text(text, language):
     voice = languages.get(language, "M1")
     return tts.synthesize(text, voice_style=voice)
 ```
+
+⚠️ **语言支持说明**：当前版本主要支持英文文本。中文及其他语言支持正在开发中，敬请期待！
 
 ---
 
@@ -599,6 +640,14 @@ deploy:
 - ✅ Go
 - ✅ cURL/Bash
 
+### Q6: 在线演示和本地部署有什么区别？
+
+**A**: 
+- **在线演示**（https://supertonic.aws.xin/）：适合快速体验、功能测试、演示展示
+- **本地部署**：适合生产环境、数据安全要求高、需要自定义配置的场景
+
+💡 **建议**：先用在线演示了解功能，再决定是否需要本地部署。
+
 ### Q4: 可以商用吗？
 
 **A**: 
@@ -624,8 +673,9 @@ for text in texts:
 
 1. **更快的推理速度**：预计2025年达到200倍实时速度
 2. **更多语音风格**：计划扩展到10+种专业语音
-3. **多语言支持**：原生支持中文、英文、日文等
+3. **多语言支持**：原生支持中文、英文、日文等（当前主要支持英文）
 4. **流式生成**：实时流式语音输出
+5. **在线平台增强**：持续优化在线演示体验，支持更多高级功能
 
 ### 应用前景
 
@@ -642,8 +692,9 @@ for text in texts:
 2. [Length-Aware RoPE论文](https://arxiv.org/abs/2509.11084) - 文本-语音对齐技术
 3. [Self-Purifying Flow Matching论文](https://arxiv.org/abs/2509.19091) - 训练技术
 4. [GitHub项目地址](https://github.com/neosun100/supertonic-tts-enhanced) - 完整源码和文档
-5. [Hugging Face模型](https://huggingface.co/Supertone/supertonic) - 模型下载和在线演示
-6. [在线交互式演示](https://huggingface.co/spaces/Supertone/supertonic) - 立即体验
+5. [Hugging Face模型](https://huggingface.co/Supertone/supertonic) - 模型下载
+6. [在线交互式演示](https://supertonic.aws.xin/) - 🌐 **立即体验**（推荐）
+7. [在线API文档](https://supertonic.aws.xin/docs) - Swagger交互式文档
 
 ---
 
@@ -667,10 +718,15 @@ for text in texts:
 
 ### 行动建议
 
-1. **立即体验**：访问在线演示，感受极速性能
+1. **立即体验**：🌐 访问 https://supertonic.aws.xin/ 在线演示，感受极速性能（无需安装）
 2. **快速部署**：3步完成本地部署，测试实际效果
 3. **深度集成**：参考API示例，集成到你的项目中
 4. **持续关注**：Star项目，获取最新更新
+
+💡 **推荐流程**：
+- 第一步：访问在线演示，快速了解功能
+- 第二步：本地部署，深度测试性能
+- 第三步：集成API，应用到实际项目
 
 ---
 
