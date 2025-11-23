@@ -1,0 +1,120 @@
+services:
+  # HTTP API Server - recommended for production use
+  supertonic-tts-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: supertonic-tts:latest
+    container_name: supertonic-tts-server
+
+    # GPU configuration - Using GPU 2 (lowest usage)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['2']  # Use GPU 2 specifically (lowest current usage)
+              capabilities: [gpu]
+
+    # Environment variables
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=2  # Use GPU 2
+      - CUDA_VISIBLE_DEVICES=0  # Map to device 0 inside container
+
+    # Port mapping - Allow access from all IPs
+    ports:
+      - "0.0.0.0:8088:8000"  # Bind to all IPs: host port 8088 to container port 8000
+
+    # Volumes - mount results and assets directories
+    volumes:
+      - ./results:/app/py/results
+      - ./assets:/app/assets
+      - ./py:/app/py
+
+    # Working directory
+    working_dir: /app/py
+
+    # Run FastAPI server with GPU support and Swagger UI
+    command: python3 tts_server_fastapi.py --host 0.0.0.0 --port 8000 --use-gpu
+
+    # Restart policy - always restart
+    restart: always
+
+  # One-time inference job (for testing)
+  supertonic-tts:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: supertonic-tts:latest
+    container_name: supertonic-tts
+    profiles: ["oneshot"]  # Only start with --profile oneshot
+
+    # GPU configuration
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=0
+      - CUDA_VISIBLE_DEVICES=0
+
+    volumes:
+      - ./results:/app/results
+      - ./assets:/app/assets
+      - ./py:/app/py
+
+    working_dir: /app/py
+    command: python3 example_onnx.py
+
+    stdin_open: true
+    tty: true
+    network_mode: bridge
+
+  # Streamlit Web UI - user-friendly interface
+  supertonic-tts-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    image: supertonic-tts-ui:latest
+    container_name: supertonic-tts-ui
+
+    # Port mapping - Allow access from all IPs
+    ports:
+      - "0.0.0.0:8501:8501"  # Bind to all IPs: Streamlit default port
+
+    # Volumes - share results directory with API server
+    volumes:
+      - ./results:/app/results
+      - ./streamlit_app.py:/app/streamlit_app.py
+
+    # Depends on API server
+    depends_on:
+      - supertonic-tts-server
+
+    # Restart policy
+    restart: always
+
+  # Alternative service for CPU-only inference (if needed)
+  supertonic-tts-cpu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: supertonic-tts:latest
+    container_name: supertonic-tts-cpu
+    profiles: ["cpu"]  # Only start with --profile cpu
+
+    volumes:
+      - ./results:/app/results
+      - ./assets:/app/assets
+      - ./py:/app/py
+
+    working_dir: /app/py
+    command: python3 example_onnx.py
+
+    stdin_open: true
+    tty: true
+    network_mode: bridge

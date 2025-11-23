@@ -1,0 +1,10 @@
+onnxruntime==1.23.1
+numpy>=1.26.0
+soundfile>=0.12.1
+librosa>=0.10.0
+PyYAML>=6.0
+
+# FastAPI and dependencies for API with Swagger documentation
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0

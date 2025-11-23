@@ -220,8 +220,25 @@ def load_text_processor(onnx_dir: str) -> UnicodeProcessor:
 
 def load_text_to_speech(onnx_dir: str, use_gpu: bool = False) -> TextToSpeech:
     opts = ort.SessionOptions()
+    # GPU ENABLED BY PATCH
     if use_gpu:
-        raise NotImplementedError("GPU mode is not fully tested")
+        print("⚠️  WARNING: GPU mode is experimental and not fully tested")
+        print("Attempting to use CUDA Execution Provider...")
+        try:
+            # Try CUDA first
+            providers = ["CUDAExecutionProvider", "CPUExecutionProvider"]
+            # Test if CUDA provider is available
+            available_providers = ort.get_available_providers()
+            if "CUDAExecutionProvider" in available_providers:
+                print("✓ CUDA Execution Provider is available")
+                print("✓ GPU mode enabled")
+            else:
+                print("⚠️  CUDA Execution Provider not available, falling back to CPU")
+                providers = ["CPUExecutionProvider"]
+        except Exception as e:
+            print(f"⚠️  Error initializing GPU: {e}")
+            print("Falling back to CPU")
+            providers = ["CPUExecutionProvider"]
     else:
         providers = ["CPUExecutionProvider"]
         print("Using CPU for inference")
