@@ -90,6 +90,34 @@ st.markdown("""
         border-radius: 5px;
         margin: 1rem 0;
     }
+    .github-star-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    .github-star-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .github-star-button {
+        display: inline-block;
+        background: white;
+        color: #667eea;
+        padding: 0.6rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .github-star-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -200,6 +228,23 @@ def get_download_link(audio_file, filename):
 st.markdown('<h1 class="main-header">🎤 Supertonic TTS</h1>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">⚡ Lightning Fast, GPU-Accelerated Text-to-Speech</p>', unsafe_allow_html=True)
 
+# GitHub Star 引导（页面顶部，首次访问时显示）
+if 'star_shown' not in st.session_state:
+    st.session_state.star_shown = True
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                padding: 1rem 1.5rem; 
+                border-radius: 10px; 
+                text-align: center; 
+                margin: 0 0 1.5rem 0;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+        <p style="color: white; margin: 0.3rem 0; font-size: 1rem;">
+            ⭐ 喜欢这个项目？<a href="https://github.com/neosun100/supertonic-tts-enhanced" target="_blank" 
+            style="color: white; text-decoration: underline; font-weight: bold;">给我们一个 Star</a> 支持一下！
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
 # Check API status
 api_status = check_api_health()
 if api_status:
@@ -277,6 +322,38 @@ with st.sidebar:
         show_stats = st.checkbox("显示详细统计", value=True)
         auto_play = st.checkbox("生成后自动播放", value=False)
         save_history = st.checkbox("保存生成历史", value=True)
+
+    st.divider()
+
+    # GitHub Star Section - 醒目的 Star 引导
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                padding: 1.5rem; 
+                border-radius: 10px; 
+                text-align: center; 
+                margin: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3 style="color: white; margin: 0 0 0.5rem 0;">⭐ 喜欢这个项目？给我们一个 Star！⭐</h3>
+        <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0; font-size: 0.95rem;">
+            如果这个项目对你有帮助，请在 GitHub 上给我们一个 Star 支持一下！
+        </p>
+        <div style="margin-top: 1rem;">
+            <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
+               target="_blank" 
+               style="display: inline-block; 
+                      background: white; 
+                      color: #667eea; 
+                      padding: 0.6rem 1.5rem; 
+                      border-radius: 25px; 
+                      text-decoration: none; 
+                      font-weight: bold;
+                      transition: transform 0.2s;
+                      box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                ⭐ 在 GitHub 上给我们 Star
+            </a>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.divider()
 
@@ -452,6 +529,60 @@ with tab2:
 with tab3:
     st.header("ℹ️ 关于 Supertonic TTS")
 
+    # GitHub Star 引导区域 - 最醒目的位置
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                padding: 2rem; 
+                border-radius: 15px; 
+                text-align: center; 
+                margin: 1rem 0 2rem 0;
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);">
+        <h2 style="color: white; margin: 0 0 1rem 0; font-size: 1.8rem;">
+            ⭐ 喜欢这个项目？给我们一个 Star！⭐
+        </h2>
+        <p style="color: rgba(255,255,255,0.95); margin: 0.5rem 0 1.5rem 0; font-size: 1.1rem; line-height: 1.6;">
+            如果这个项目对你有帮助，请在 GitHub 上给我们一个 Star 支持一下！<br>
+            你的支持是我们持续改进的动力 💪
+        </p>
+        <div style="margin-top: 1.5rem;">
+            <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
+               target="_blank" 
+               style="display: inline-block; 
+                      background: white; 
+                      color: #667eea; 
+                      padding: 0.8rem 2rem; 
+                      border-radius: 30px; 
+                      text-decoration: none; 
+                      font-weight: bold;
+                      font-size: 1.1rem;
+                      transition: all 0.3s;
+                      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                      margin: 0.5rem;">
+                ⭐ 在 GitHub 上给我们 Star
+            </a>
+        </div>
+        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
+               target="_blank"
+               style="color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem;">
+                🏠 项目主页
+            </a>
+            <span style="color: rgba(255,255,255,0.5);">|</span>
+            <a href="https://github.com/neosun100/supertonic-tts-enhanced/issues" 
+               target="_blank"
+               style="color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem;">
+                🐛 问题反馈
+            </a>
+            <span style="color: rgba(255,255,255,0.5);">|</span>
+            <a href="https://github.com/neosun100/supertonic-tts-enhanced/blob/main/README.md" 
+               target="_blank"
+               style="color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem;">
+                📖 使用文档
+            </a>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("""
     ### 🎙️ Supertonic TTS
 
@@ -465,13 +596,16 @@ with tab3:
     - **🎨 自然文本处理**: 无需预处理即可处理数字、日期、货币等
     - **⚙️ 高度可配置**: 可调节推理步骤、批处理等参数
     - **🧩 灵活部署**: 支持服务器、浏览器和边缘设备
+    - **🐳 Docker 支持**: 一键部署，支持 GPU 加速
+    - **🌐 Web UI**: 美观易用的图形界面
+    - **🚀 RESTful API**: 完整的 FastAPI 服务，支持 Swagger 文档
 
     #### 🎤 可用语音
 
-    - **Male 1 (M1)**: 标准男声
-    - **Male 2 (M2)**: 年轻男声
-    - **Female 1 (F1)**: 温柔女声
-    - **Female 2 (F2)**: 活泼女声
+    - **Male 1 (M1)**: 标准男声，适合新闻播报、叙述
+    - **Male 2 (M2)**: 年轻男声，适合对话、讲解
+    - **Female 1 (F1)**: 温柔女声，适合有声读物、导航
+    - **Female 2 (F2)**: 活泼女声，适合广告、客服
 
     #### 🔧 技术栈
 
@@ -479,12 +613,14 @@ with tab3:
     - **Backend**: Python + FastAPI
     - **Frontend**: Streamlit
     - **GPU**: NVIDIA CUDA 12.6.3
+    - **Docker**: 容器化部署
 
     #### 📚 更多信息
 
-    - [GitHub](https://github.com/supertone-inc/supertonic)
-    - [Hugging Face](https://huggingface.co/Supertone/supertonic)
-    - [在线演示](https://huggingface.co/spaces/Supertone/supertonic)
+    - [GitHub 项目](https://github.com/neosun100/supertonic-tts-enhanced) - 完整源码和文档
+    - [原始项目](https://github.com/supertone-inc/supertonic) - Supertone Inc. 官方仓库
+    - [Hugging Face 模型](https://huggingface.co/Supertone/supertonic) - 模型下载
+    - [在线演示](https://huggingface.co/spaces/Supertone/supertonic) - 交互式演示
 
     ---
 
@@ -494,6 +630,7 @@ with tab3:
     - **端口**: 8088
     - **健康检查**: `GET /health`
     - **语音合成**: `POST /synthesize`
+    - **Swagger 文档**: `GET /docs`
 
     #### 示例 API 调用
 
@@ -508,19 +645,86 @@ with tab3:
       }'
     ```
 
+    #### 一行命令测试（生成并播放）
+
+    ```bash
+    curl -X POST http://localhost:8088/synthesize \\
+      -H "Content-Type: application/json" \\
+      -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/M1.json"}' \\
+      | jq -r '.output_file' \\
+      | xargs -I {} bash -c 'curl -s http://localhost:8088/{} | ffplay -nodisp -autoexit - 2>/dev/null'
+    ```
+
     ---
 
-    <div style="text-align: center; color: #666; margin-top: 2rem;">
-        <p>Made with ❤️ by Supertone Inc.</p>
-        <p>Powered by ONNX Runtime & Streamlit</p>
+    <div style="text-align: center; color: #666; margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+        <p style="margin: 0.5rem 0; font-size: 1rem;">
+            <strong>Made with ❤️ by <a href="https://github.com/neosun100" target="_blank" style="color: #667eea; text-decoration: none;">@neosun100</a></strong>
+        </p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem; color: #888;">
+            Powered by ONNX Runtime & Streamlit
+        </p>
+        <p style="margin: 0.5rem 0; font-size: 0.85rem; color: #999;">
+            Supertonic TTS Enhanced v1.0 | © 2025 | MIT License
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
-# Footer
+# Footer with GitHub Star
 st.markdown("---")
+
+# GitHub Star 引导（页面底部）
+st.markdown("""
+<div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
+            padding: 1.5rem; 
+            border-radius: 10px; 
+            text-align: center; 
+            margin: 1rem 0;
+            border: 2px solid #667eea;">
+    <h3 style="color: #333; margin: 0 0 0.5rem 0; font-size: 1.3rem;">
+        ⭐ 如果这个项目对你有帮助，请给我们一个 Star！
+    </h3>
+    <p style="color: #666; margin: 0.5rem 0 1rem 0;">
+        你的支持是我们持续改进的动力 💪
+    </p>
+    <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
+       target="_blank" 
+       style="display: inline-block; 
+              background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); 
+              color: white; 
+              padding: 0.7rem 2rem; 
+              border-radius: 25px; 
+              text-decoration: none; 
+              font-weight: bold;
+              font-size: 1rem;
+              box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+              transition: transform 0.2s;">
+        ⭐ 在 GitHub 上给我们 Star
+    </a>
+    <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem;">
+        <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
+           target="_blank"
+           style="color: #667eea; text-decoration: none;">
+            🏠 项目主页
+        </a>
+        <a href="https://github.com/neosun100/supertonic-tts-enhanced/issues" 
+           target="_blank"
+           style="color: #667eea; text-decoration: none;">
+            🐛 问题反馈
+        </a>
+        <a href="https://github.com/neosun100/supertonic-tts-enhanced/blob/main/README.md" 
+           target="_blank"
+           style="color: #667eea; text-decoration: none;">
+            📖 使用文档
+        </a>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Footer info
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.markdown("**Supertonic TTS v1.0**")
+    st.markdown("**Supertonic TTS Enhanced v1.0**")
 with col2:
     st.markdown("🖥️ GPU 加速模式")
 with col3:
