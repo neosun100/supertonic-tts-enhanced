@@ -274,6 +274,21 @@ with st.sidebar:
     )
     st.info(VOICE_STYLES[selected_voice]['description'])
     voice_style_path = VOICE_STYLES[selected_voice]['path']
+    
+    # Language support notice in sidebar
+    st.markdown("---")
+    st.markdown("""
+    <div style="background: #fff3cd; 
+                border-left: 3px solid #ffc107; 
+                padding: 0.6rem 0.8rem; 
+                border-radius: 4px; 
+                margin: 0.5rem 0;">
+        <p style="margin: 0; color: #856404; font-size: 0.85rem; font-weight: 500;">
+            ⚠️ <strong>仅支持英文</strong><br>
+            当前版本仅支持英文文本输入
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.divider()
 
@@ -389,6 +404,19 @@ tab1, tab2, tab3 = st.tabs(["📝 文本合成", "📜 历史记录", "ℹ️ �
 with tab1:
     st.header("输入文本")
 
+    # Language support notice
+    st.markdown("""
+    <div style="background: #fff3cd; 
+                border-left: 4px solid #ffc107; 
+                padding: 0.8rem 1rem; 
+                border-radius: 5px; 
+                margin-bottom: 1rem;">
+        <p style="margin: 0; color: #856404; font-weight: 500;">
+            ⚠️ <strong>语言支持说明</strong>：当前版本仅支持 <strong>英文</strong> 文本输入。中文及其他语言支持正在开发中。
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
     # Text input modes
     input_mode = st.radio(
         "输入模式",
@@ -398,17 +426,17 @@ with tab1:
 
     if input_mode == "单句输入":
         text_input = st.text_area(
-            "输入要转换的文本",
+            "输入要转换的文本（仅支持英文）",
             height=150,
-            placeholder="例如：今天天气真不错，阳光明媚，适合出去走走。",
-            help="输入单句或短文本（建议 500 字以内）"
+            placeholder="例如：Hello, this is a test of the Supertonic TTS system. It supports natural text processing without preprocessing.",
+            help="输入单句或短文本（建议 500 字以内）。注意：当前仅支持英文输入。"
         )
     else:
         text_input = st.text_area(
-            "输入要转换的长文本",
+            "输入要转换的长文本（仅支持英文）",
             height=300,
-            placeholder="可以输入长文本，系统会自动分段处理...",
-            help="长文本会自动分段合成，适合文章、故事等"
+            placeholder="Enter long text here. The system will automatically segment and process it. Note: Currently only English is supported.",
+            help="长文本会自动分段合成，适合文章、故事等。注意：当前仅支持英文输入。"
         )
 
     # Character count
@@ -639,6 +667,26 @@ with tab3:
     - **🐳 Docker 支持**: 一键部署，支持 GPU 加速
     - **🌐 Web UI**: 美观易用的图形界面
     - **🚀 RESTful API**: 完整的 FastAPI 服务，支持 Swagger 文档
+
+    #### 🌍 语言支持
+
+    <div style="background: #fff3cd; 
+                border-left: 4px solid #ffc107; 
+                padding: 1rem; 
+                border-radius: 5px; 
+                margin: 1rem 0;">
+        <p style="margin: 0; color: #856404; font-weight: 600;">
+            ⚠️ <strong>当前语言支持</strong>
+        </p>
+        <ul style="margin: 0.5rem 0 0 1.5rem; color: #856404;">
+            <li><strong>✅ 英文</strong>：完全支持</li>
+            <li>❌ 中文：暂不支持（开发中）</li>
+            <li>❌ 其他语言：暂不支持（开发中）</li>
+        </ul>
+        <p style="margin: 0.5rem 0 0 0; color: #856404; font-size: 0.9rem;">
+            💡 请使用英文文本进行语音合成。中文及其他语言支持将在后续版本中推出。
+        </p>
+    </div>
 
     #### 🎤 可用语音
 
