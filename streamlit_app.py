@@ -232,15 +232,23 @@ st.markdown('<p class="sub-header">⚡ Lightning Fast, GPU-Accelerated Text-to-S
 if 'star_shown' not in st.session_state:
     st.session_state.star_shown = True
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    <div style="background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%); 
                 padding: 1rem 1.5rem; 
                 border-radius: 10px; 
                 text-align: center; 
                 margin: 0 0 1.5rem 0;
-                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
-        <p style="color: white; margin: 0.3rem 0; font-size: 1rem;">
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                border: 2px solid #667eea;">
+        <p style="color: #ffffff; 
+                  margin: 0.3rem 0; 
+                  font-size: 1rem; 
+                  font-weight: 600;
+                  text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
             ⭐ 喜欢这个项目？<a href="https://github.com/neosun100/supertonic-tts-enhanced" target="_blank" 
-            style="color: white; text-decoration: underline; font-weight: bold;">给我们一个 Star</a> 支持一下！
+            style="color: #ffd700; 
+                   text-decoration: underline; 
+                   font-weight: bold;
+                   text-shadow: 0 1px 2px rgba(0,0,0,0.5);">给我们一个 Star</a> 支持一下！
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -327,28 +335,37 @@ with st.sidebar:
 
     # GitHub Star Section - 醒目的 Star 引导
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    <div style="background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%); 
                 padding: 1.5rem; 
                 border-radius: 10px; 
                 text-align: center; 
                 margin: 1rem 0;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h3 style="color: white; margin: 0 0 0.5rem 0;">⭐ 喜欢这个项目？给我们一个 Star！⭐</h3>
-        <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0; font-size: 0.95rem;">
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+                border: 2px solid #667eea;">
+        <h3 style="color: #ffffff; 
+                   margin: 0 0 0.5rem 0; 
+                   font-weight: 700;
+                   text-shadow: 0 2px 4px rgba(0,0,0,0.4);">⭐ 喜欢这个项目？给我们一个 Star！⭐</h3>
+        <p style="color: #f7fafc; 
+                  margin: 0.5rem 0; 
+                  font-size: 0.95rem;
+                  font-weight: 500;
+                  text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
             如果这个项目对你有帮助，请在 GitHub 上给我们一个 Star 支持一下！
         </p>
         <div style="margin-top: 1rem;">
             <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
                target="_blank" 
                style="display: inline-block; 
-                      background: white; 
-                      color: #667eea; 
+                      background: #ffd700; 
+                      color: #1a202c; 
                       padding: 0.6rem 1.5rem; 
                       border-radius: 25px; 
                       text-decoration: none; 
                       font-weight: bold;
                       transition: transform 0.2s;
-                      box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+                      border: 2px solid #ffed4e;">
                 ⭐ 在 GitHub 上给我们 Star
             </a>
         </div>
@@ -531,16 +548,26 @@ with tab3:
 
     # GitHub Star 引导区域 - 最醒目的位置
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    <div style="background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); 
                 padding: 2rem; 
                 border-radius: 15px; 
                 text-align: center; 
                 margin: 1rem 0 2rem 0;
-                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);">
-        <h2 style="color: white; margin: 0 0 1rem 0; font-size: 1.8rem;">
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+                border: 3px solid #667eea;">
+        <h2 style="color: #ffffff; 
+                   margin: 0 0 1rem 0; 
+                   font-size: 1.8rem;
+                   font-weight: 800;
+                   text-shadow: 0 2px 6px rgba(0,0,0,0.5);">
             ⭐ 喜欢这个项目？给我们一个 Star！⭐
         </h2>
-        <p style="color: rgba(255,255,255,0.95); margin: 0.5rem 0 1.5rem 0; font-size: 1.1rem; line-height: 1.6;">
+        <p style="color: #f7fafc; 
+                  margin: 0.5rem 0 1.5rem 0; 
+                  font-size: 1.1rem; 
+                  line-height: 1.6;
+                  font-weight: 500;
+                  text-shadow: 0 1px 3px rgba(0,0,0,0.4);">
             如果这个项目对你有帮助，请在 GitHub 上给我们一个 Star 支持一下！<br>
             你的支持是我们持续改进的动力 💪
         </p>
@@ -548,15 +575,16 @@ with tab3:
             <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
                target="_blank" 
                style="display: inline-block; 
-                      background: white; 
-                      color: #667eea; 
+                      background: #ffd700; 
+                      color: #1a202c; 
                       padding: 0.8rem 2rem; 
                       border-radius: 30px; 
                       text-decoration: none; 
                       font-weight: bold;
                       font-size: 1.1rem;
                       transition: all 0.3s;
-                      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+                      border: 2px solid #ffed4e;
                       margin: 0.5rem;">
                 ⭐ 在 GitHub 上给我们 Star
             </a>
@@ -564,19 +592,31 @@ with tab3:
         <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
             <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
                target="_blank"
-               style="color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem;">
+               style="color: #ffd700; 
+                      text-decoration: none; 
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                      text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
                 🏠 项目主页
             </a>
-            <span style="color: rgba(255,255,255,0.5);">|</span>
+            <span style="color: rgba(255,255,255,0.4);">|</span>
             <a href="https://github.com/neosun100/supertonic-tts-enhanced/issues" 
                target="_blank"
-               style="color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem;">
+               style="color: #ffd700; 
+                      text-decoration: none; 
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                      text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
                 🐛 问题反馈
             </a>
-            <span style="color: rgba(255,255,255,0.5);">|</span>
+            <span style="color: rgba(255,255,255,0.4);">|</span>
             <a href="https://github.com/neosun100/supertonic-tts-enhanced/blob/main/README.md" 
                target="_blank"
-               style="color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem;">
+               style="color: #ffd700; 
+                      text-decoration: none; 
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                      text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
                 📖 使用文档
             </a>
         </div>
@@ -675,46 +715,59 @@ st.markdown("---")
 
 # GitHub Star 引导（页面底部）
 st.markdown("""
-<div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
+<div style="background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%); 
             padding: 1.5rem; 
             border-radius: 10px; 
             text-align: center; 
             margin: 1rem 0;
-            border: 2px solid #667eea;">
-    <h3 style="color: #333; margin: 0 0 0.5rem 0; font-size: 1.3rem;">
+            border: 2px solid #667eea;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <h3 style="color: #1a202c; 
+               margin: 0 0 0.5rem 0; 
+               font-size: 1.3rem;
+               font-weight: 700;">
         ⭐ 如果这个项目对你有帮助，请给我们一个 Star！
     </h3>
-    <p style="color: #666; margin: 0.5rem 0 1rem 0;">
+    <p style="color: #2d3748; 
+              margin: 0.5rem 0 1rem 0;
+              font-weight: 500;">
         你的支持是我们持续改进的动力 💪
     </p>
     <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
        target="_blank" 
        style="display: inline-block; 
               background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); 
-              color: white; 
+              color: #ffffff; 
               padding: 0.7rem 2rem; 
               border-radius: 25px; 
               text-decoration: none; 
               font-weight: bold;
               font-size: 1rem;
-              box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-              transition: transform 0.2s;">
+              box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+              transition: transform 0.2s;
+              text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
         ⭐ 在 GitHub 上给我们 Star
     </a>
     <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem;">
         <a href="https://github.com/neosun100/supertonic-tts-enhanced" 
            target="_blank"
-           style="color: #667eea; text-decoration: none;">
+           style="color: #667eea; 
+                  text-decoration: none;
+                  font-weight: 600;">
             🏠 项目主页
         </a>
         <a href="https://github.com/neosun100/supertonic-tts-enhanced/issues" 
            target="_blank"
-           style="color: #667eea; text-decoration: none;">
+           style="color: #667eea; 
+                  text-decoration: none;
+                  font-weight: 600;">
             🐛 问题反馈
         </a>
         <a href="https://github.com/neosun100/supertonic-tts-enhanced/blob/main/README.md" 
            target="_blank"
-           style="color: #667eea; text-decoration: none;">
+           style="color: #667eea; 
+                  text-decoration: none;
+                  font-weight: 600;">
             📖 使用文档
         </a>
     </div>
