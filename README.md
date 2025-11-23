@@ -123,7 +123,7 @@ docker-compose logs -f
 
 **服务说明**:
 - **API 服务器**: 运行在 `http://localhost:8088`
-- **Web UI**: 运行在 `http://localhost:8501`
+- **Web UI**: 运行在 `http://localhost:8501` - [查看 UI 界面截图](#功能特性)
 - **Swagger 文档**: `http://localhost:8088/docs`
 
 #### 验证部署
@@ -274,6 +274,12 @@ docker stats supertonic-tts-server
 ## 🎯 功能特性
 
 ### Web UI 界面
+
+<p align="center">
+  <img src="https://img.aws.xin/uPic/qVp89F.png" alt="Supertonic TTS Web UI" width="800">
+  <br>
+  <em>Supertonic TTS Web UI 界面预览</em>
+</p>
 
 - 🎨 **美观的图形界面**: 基于 Streamlit 的现代化 Web 界面
 - 🎤 **4 种语音风格**: 男声（M1, M2）和女声（F1, F2）
