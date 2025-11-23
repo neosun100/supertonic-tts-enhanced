@@ -59,8 +59,8 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/supertone-inc/supertonic.git
-cd supertonic
+git clone https://github.com/neosun100/supertonic-tts-enhanced.git
+cd supertonic-tts-enhanced
 
 # 下载模型文件（约 200MB，需要 Git LFS）
 ./download_models.sh
@@ -977,7 +977,7 @@ Copyright (c) 2025 Supertone Inc.
 
 ## 📞 支持
 
-- **GitHub Issues**: [提交问题](https://github.com/supertone-inc/supertonic/issues)
+- **GitHub Issues**: [提交问题](https://github.com/neosun100/supertonic-tts-enhanced/issues)
 - **Hugging Face**: [模型页面](https://huggingface.co/Supertone/supertonic)
 - **在线演示**: [交互式演示](https://huggingface.co/spaces/Supertone/supertonic)
 
