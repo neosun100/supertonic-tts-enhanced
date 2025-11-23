@@ -52,6 +52,21 @@
 - **Docker** 和 **Docker Compose**（必需）
 - **NVIDIA GPU**（可选，用于 GPU 加速，推荐）
 - **Git LFS**（用于下载模型文件）
+- **jq**（可选，用于 JSON 解析，推荐用于命令行测试）
+- **ffmpeg**（可选，用于音频播放，推荐用于命令行测试）
+
+**安装可选工具**:
+```bash
+# macOS
+brew install jq ffmpeg
+
+# Ubuntu/Debian
+sudo apt-get install jq ffmpeg
+
+# 验证安装
+jq --version
+ffplay -version
+```
 
 ### 一键部署（3 步完成）
 
@@ -119,7 +134,16 @@ curl http://localhost:8088/health
 
 # 预期响应:
 # {"status":"healthy","service":"Supertonic TTS","gpu_enabled":true}
+
+# 快速测试：生成语音并播放（一行命令）
+curl -X POST http://localhost:8088/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/M1.json"}' \
+  | jq -r '.output_file' \
+  | xargs -I {} bash -c 'curl -s http://localhost:8088/{} | ffplay -nodisp -autoexit - 2>/dev/null'
 ```
+
+> **提示**: 如果使用生产环境的域名，将 `localhost:8088` 替换为你的域名，例如 `https://your-api-domain.com`
 
 ### Docker 镜像构建详解
 
@@ -689,7 +713,58 @@ async function testAllVoices() {
 testAllVoices();
 ```
 
-#### 8. cURL 批量测试脚本
+#### 8. cURL 一行命令（生成并播放）
+
+**生成语音并直接播放**（推荐，最简洁）：
+
+```bash
+# M1 (标准男声)
+curl -X POST http://localhost:8088/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/M1.json"}' \
+  | jq -r '.output_file' \
+  | xargs -I {} bash -c 'curl -s http://localhost:8088/{} | ffplay -nodisp -autoexit - 2>/dev/null'
+
+# M2 (年轻男声)
+curl -X POST http://localhost:8088/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/M2.json"}' \
+  | jq -r '.output_file' \
+  | xargs -I {} bash -c 'curl -s http://localhost:8088/{} | ffplay -nodisp -autoexit - 2>/dev/null'
+
+# F1 (温柔女声)
+curl -X POST http://localhost:8088/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/F1.json"}' \
+  | jq -r '.output_file' \
+  | xargs -I {} bash -c 'curl -s http://localhost:8088/{} | ffplay -nodisp -autoexit - 2>/dev/null'
+
+# F2 (活泼女声)
+curl -X POST http://localhost:8088/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/F2.json"}' \
+  | jq -r '.output_file' \
+  | xargs -I {} bash -c 'curl -s http://localhost:8088/{} | ffplay -nodisp -autoexit - 2>/dev/null'
+```
+
+**说明**:
+- `jq -r '.output_file'`: 从 JSON 响应中提取文件名
+- `xargs -I {} bash -c '...'`: 使用提取的文件名下载并播放
+- `ffplay -nodisp -autoexit - 2>/dev/null`: 播放音频，隐藏输出（`-nodisp` 不显示窗口，`-autoexit` 播放完自动退出，`2>/dev/null` 隐藏错误输出）
+- 需要安装 `jq` 和 `ffmpeg`（包含 `ffplay`）
+
+**如果使用域名**（生产环境）:
+```bash
+# 将 localhost:8088 替换为你的域名
+API_URL="https://your-domain.com"
+curl -X POST ${API_URL}/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test.", "total_steps": 5, "speed": 1.05, "voice_style": "assets/voice_styles/M1.json"}' \
+  | jq -r '.output_file' \
+  | xargs -I {} bash -c "curl -s ${API_URL}/{} | ffplay -nodisp -autoexit - 2>/dev/null"
+```
+
+#### 9. cURL 批量测试脚本
 
 ```bash
 #!/bin/bash
@@ -741,7 +816,7 @@ chmod +x test_voices.sh
 ./test_voices.sh
 ```
 
-#### 9. 在线 API 文档
+#### 10. 在线 API 文档
 
 访问 Swagger UI 查看完整的交互式 API 文档：
 
@@ -754,6 +829,33 @@ http://localhost:8088/docs
 - 查看请求/响应格式
 - 直接在浏览器中测试 API
 - 查看参数说明和示例
+
+#### 11. 快速测试所有语音风格
+
+使用以下脚本快速测试所有四种语音风格并播放：
+
+```bash
+#!/bin/bash
+# 快速测试所有语音风格并播放
+
+API_URL="http://localhost:8088"
+TEST_TEXT="Hello, this is a test of Supertonic TTS."
+
+for voice in "M1" "M2" "F1" "F2"; do
+    echo "🎤 测试语音风格: $voice"
+    curl -s -X POST "$API_URL/synthesize" \
+        -H "Content-Type: application/json" \
+        -d "{\"text\": \"$TEST_TEXT\", \"total_steps\": 5, \"speed\": 1.05, \"voice_style\": \"assets/voice_styles/${voice}.json\"}" \
+        | jq -r '.output_file' \
+        | xargs -I {} bash -c "curl -s $API_URL/{} | ffplay -nodisp -autoexit - 2>/dev/null"
+    echo ""
+done
+```
+
+**使用说明**:
+- 将 `API_URL` 改为你的服务器地址（本地使用 `http://localhost:8088`，生产环境使用你的域名）
+- 需要安装 `jq` 和 `ffmpeg`
+- 脚本会依次播放四种语音风格的测试音频
 
 ---
 
