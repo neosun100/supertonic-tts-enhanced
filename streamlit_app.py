@@ -70,11 +70,15 @@ st.markdown("""
         color: #666;
     }
     .success-box {
-        background: #d4edda;
-        border-left: 5px solid #28a745;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        border-left: 5px solid #155724;
         padding: 1rem;
         border-radius: 5px;
         margin: 1rem 0;
+        color: #ffffff;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
     }
     .info-box {
         background: #d1ecf1;
