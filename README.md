@@ -6,6 +6,7 @@
 [![Models](https://img.shields.io/badge/🤗%20Hugging%20Face-Models-blue)](https://huggingface.co/Supertone/supertonic)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-Hub-blue?logo=docker)](https://hub.docker.com/r/neosun/supertonic-allinone)
+[![Paper](https://img.shields.io/badge/arXiv-2503.23108-b31b1b.svg)](https://arxiv.org/abs/2503.23108)
 
 <p align="center">
   <img src="img/Supertonic_IMG_v02_4x.webp" alt="Supertonic Banner" width="600">
@@ -224,6 +225,20 @@ See [DEPLOY.md](DEPLOY.md) for detailed deployment options.
 - Models: OpenRAIL-M License
 
 Copyright (c) 2025 Supertone Inc.
+
+---
+
+## 📄 Paper
+
+**SupertonicTTS: Towards Highly Efficient and Streamlined Text-to-Speech System**
+
+- 📝 arXiv: https://arxiv.org/abs/2503.23108
+- 📄 PDF: https://arxiv.org/pdf/2503.23108
+- 🌐 Demo: https://supertonictts.github.io/
+
+**Authors:** Hyeongju Kim, Jinhyeok Yang, Yechan Yu, Seunghun Ji, Jacob Morton, Frederik Bous, Joon Byun, Juheon Lee
+
+**Abstract:** SupertonicTTS is a novel TTS system with only 44M parameters, delivering performance comparable to contemporary zero-shot TTS models while significantly reducing architectural complexity and computational cost.
 
 ---
 
