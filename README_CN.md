@@ -7,55 +7,48 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-Hub-blue?logo=docker)](https://hub.docker.com/r/neosun/supertonic-allinone)
 
+<p align="center">
+  <img src="img/Supertonic_IMG_v02_4x.webp" alt="Supertonic Banner" width="600">
+</p>
+
 **Supertonic** 是一个极速、设备端文本转语音系统，专为极致性能和最小计算开销而设计。基于 ONNX Runtime，完全在您的设备上运行——无需云端、无需 API 调用、无需隐私担忧。
 
 ## ✨ 主要特性
 
 - ⚡ **极速生成**: 实时速度的 167 倍
 - 🪶 **超轻量级**: 仅 66M 参数
-- 📱 **设备端运行**: 完全隐私保护
+- 📱 **设备端运行**: 完全隐私保护，零延迟
 - 🎨 **自然文本处理**: 无缝处理数字、日期、货币
 - 🐳 **一键部署**: Docker 支持，GPU 加速
 
-## 🚀 快速开始
+---
 
-### Docker 部署（推荐）
+## 🚀 快速开始（一行命令）
 
 ```bash
-# 拉取镜像
-docker pull neosun/supertonic-allinone:latest
-
-# 使用 GPU 运行 ⚡ 推荐
 docker run -d --name supertonic \
   --gpus all \
   -p 0.0.0.0:8088:8088 \
   -p 0.0.0.0:8501:8501 \
   neosun/supertonic-allinone:latest
-
-# 或不使用 GPU（CPU 模式 - 较慢）
-docker run -d --name supertonic \
-  -p 0.0.0.0:8088:8088 \
-  -p 0.0.0.0:8501:8501 \
-  neosun/supertonic-allinone:latest
 ```
 
-> **⚡ GPU 支持**: 镜像包含 CUDA 12.6.3 支持。使用 `--gpus all` 启用 GPU 加速（更快）。不使用 GPU 则运行在 CPU 上（较慢但仍可用）。
+> **⚡ 推荐使用 GPU**: 使用 `--gpus all` 启用 GPU 加速（更快）。去掉该参数则使用 CPU 模式。
 
-### 访问服务
+**访问地址:**
+- 🌐 **Web UI**: http://你的服务器IP:8501
+- 📡 **API 文档**: http://你的服务器IP:8088/docs
+- ❤️ **健康检查**: http://你的服务器IP:8088/health
 
-- **Web UI**: http://你的服务器IP:8501
-- **API 文档**: http://你的服务器IP:8088/docs
-- **API 健康检查**: http://你的服务器IP:8088/health
-
-### 包含内容
-
-- Supertonic TTS 模型（已预加载）
-- 所有依赖
-- 4 种语音风格（M1, M2, F1, F2）
+**包含内容:**
 - FastAPI 服务器（端口 8088）
 - Streamlit Web UI（端口 8501）
-- **⚡ GPU 支持（CUDA 12.6.3）**
-- 双服务健康检查
+- 预加载 TTS 模型
+- 4 种语音风格（M1, M2, F1, F2）
+- GPU 支持（CUDA 12.6.3）
+- 健康检查
+
+---
 
 ## 📡 API 使用
 
@@ -75,7 +68,6 @@ response = requests.post(
     }
 )
 
-# 获取结果
 result = response.json()
 print(f"状态: {result['status']}")
 print(f"音频文件: {result['output_file']}")
@@ -83,12 +75,12 @@ print(f"生成时间: {result['generation_time']}秒")
 
 # 下载音频
 audio_url = f"http://localhost:8088/{result['output_file']}"
-audio_response = requests.get(audio_url)
+audio = requests.get(audio_url).content
 with open("output.wav", "wb") as f:
-    f.write(audio_response.content)
+    f.write(audio)
 ```
 
-### 快速测试
+### cURL 示例
 
 ```bash
 # 健康检查
@@ -102,14 +94,53 @@ curl -X POST http://localhost:8088/synthesize \
     "voice_style": "assets/voice_styles/M1.json",
     "total_steps": 5
   }'
+
+# 响应示例:
+# {
+#   "status": "success",
+#   "output_file": "output_1765119221.wav",
+#   "generation_time": 0.164,
+#   "audio_duration": 3.42
+# }
+
+# 下载音频
+curl http://localhost:8088/output_1765119221.wav -o output.wav
 ```
+
+### JavaScript 示例
+
+```javascript
+// 合成语音
+const response = await fetch('http://localhost:8088/synthesize', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    text: '你好，我是 Supertonic。',
+    voice_style: 'assets/voice_styles/M1.json',
+    total_steps: 5
+  })
+});
+
+const result = await response.json();
+console.log(`音频: ${result.output_file}`);
+
+// 下载音频
+const audioUrl = `http://localhost:8088/${result.output_file}`;
+const audioBlob = await fetch(audioUrl).then(r => r.blob());
+```
+
+---
 
 ## 🎨 语音风格
 
-- `assets/voice_styles/M1.json` - 男声 1
-- `assets/voice_styles/M2.json` - 男声 2
-- `assets/voice_styles/F1.json` - 女声 1
-- `assets/voice_styles/F2.json` - 女声 2
+| 语音 | 说明 |
+|------|------|
+| `assets/voice_styles/M1.json` | 男声 1 |
+| `assets/voice_styles/M2.json` | 男声 2 |
+| `assets/voice_styles/F1.json` | 女声 1 |
+| `assets/voice_styles/F2.json` | 女声 2 |
+
+---
 
 ## 🔧 容器管理
 
@@ -132,9 +163,25 @@ docker rm -f supertonic
 # 重新运行启动命令
 ```
 
+---
+
+## 📊 性能指标
+
+- **速度**: 实时速度的 167 倍（M4 Pro）
+- **延迟**: 首个音频约 300ms
+- **模型大小**: 66M 参数
+- **音频质量**: 16-bit PCM, 44.1kHz
+
+---
+
 ## 📄 许可证
 
-本项目示例代码采用 MIT License。模型文件采用 OpenRAIL-M License。
+- 代码: MIT License
+- 模型: OpenRAIL-M License
+
+Copyright (c) 2025 Supertone Inc.
+
+---
 
 ## 🙏 致谢
 
