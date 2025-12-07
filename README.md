@@ -55,19 +55,21 @@ The easiest way to run Supertonic is using our all-in-one Docker image:
 # Pull the image
 docker pull neosun/supertonic-allinone:latest
 
-# Run with GPU support (all IPs accessible)
+# Run with GPU support (all IPs accessible) ⚡ RECOMMENDED
 docker run -d --name supertonic \
   --gpus all \
   -p 0.0.0.0:8088:8088 \
   -p 0.0.0.0:8501:8501 \
   neosun/supertonic-allinone:latest
 
-# Or run without GPU (CPU only)
+# Or run without GPU (CPU only - slower)
 docker run -d --name supertonic \
   -p 0.0.0.0:8088:8088 \
   -p 0.0.0.0:8501:8501 \
   neosun/supertonic-allinone:latest
 ```
+
+> **⚡ GPU Support**: The image includes CUDA 12.6.3 support. Use `--gpus all` for GPU acceleration (much faster). Without GPU, it will run on CPU (slower but still works).
 
 **Access the service:**
 - Web UI: `http://your-server-ip:8501`
@@ -81,7 +83,7 @@ docker run -d --name supertonic \
 - 4 voice styles (M1, M2, F1, F2)
 - FastAPI server (port 8088)
 - Streamlit Web UI (port 8501)
-- GPU support with CUDA 12.6.3
+- **⚡ GPU support with CUDA 12.6.3** (optional, use `--gpus all`)
 - Health checks for both services
 
 ### API Usage Example
