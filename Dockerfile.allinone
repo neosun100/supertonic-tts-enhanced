@@ -16,7 +16,7 @@ COPY . /app/
 # Install Python dependencies
 RUN pip install --no-cache-dir -r streamlit_requirements.txt && \
     pip install --no-cache-dir -r py/requirements.txt && \
-    pip install --no-cache-dir httpx fastapi uvicorn[standard] && \
+    pip install --no-cache-dir httpx fastapi uvicorn[standard] websockets && \
     rm -rf /root/.cache/pip
 
 # Create results directory

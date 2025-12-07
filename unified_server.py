@@ -189,6 +189,53 @@ async def mcp_info():
     }
 
 # ============================================================================
+# Streamlit WebSocket 代理
+# ============================================================================
+
+@app.websocket("/_stcore/stream")
+async def streamlit_websocket(websocket: WebSocket):
+    """代理 Streamlit WebSocket 连接"""
+    await websocket.accept()
+    
+    import websockets
+    
+    try:
+        # 连接到 Streamlit 的 WebSocket
+        async with websockets.connect(
+            f"ws://0.0.0.0:{STREAMLIT_PORT}/_stcore/stream"
+        ) as streamlit_ws:
+            # 双向转发
+            async def forward_to_streamlit():
+                try:
+                    while True:
+                        data = await websocket.receive_text()
+                        await streamlit_ws.send(data)
+                except:
+                    pass
+            
+            async def forward_to_client():
+                try:
+                    async for message in streamlit_ws:
+                        await websocket.send_text(message)
+                except:
+                    pass
+            
+            # 并发运行双向转发
+            import asyncio
+            await asyncio.gather(
+                forward_to_streamlit(),
+                forward_to_client(),
+                return_exceptions=True
+            )
+    except Exception as e:
+        print(f"WebSocket 代理错误: {e}")
+    finally:
+        try:
+            await websocket.close()
+        except:
+            pass
+
+# ============================================================================
 # Streamlit 反向代理
 # ============================================================================
 
