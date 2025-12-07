@@ -1,0 +1,37 @@
+# Supertonic All-in-One Docker Image
+# Everything included: models, dependencies, UI, API
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    libsndfile1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy all application files
+COPY . /app/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r streamlit_requirements.txt && \
+    pip install --no-cache-dir -r py/requirements.txt && \
+    pip install --no-cache-dir httpx fastapi uvicorn[standard] && \
+    rm -rf /root/.cache/pip
+
+# Create results directory
+RUN mkdir -p /app/results
+
+# Environment variables
+ENV PYTHONUNBUFFERED=1 \
+    USE_GPU=false
+
+# Expose port
+EXPOSE 8501
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8501/api/health || exit 1
+
+# Start unified server
+CMD ["python3", "unified_server.py"]

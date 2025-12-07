@@ -1,10 +1,12 @@
 # Supertonic — Lightning Fast, On-Device TTS
 
+[![English](https://img.shields.io/badge/Language-English-blue)](README.md) [![中文](https://img.shields.io/badge/语言-中文-red)](README_CN.md) [![日本語](https://img.shields.io/badge/言語-日本語-green)](README_JP.md) [![한국어](https://img.shields.io/badge/언어-한국어-orange)](README_KR.md)
+
 [![Demo](https://img.shields.io/badge/🤗%20Hugging%20Face-Demo-yellow)](https://huggingface.co/spaces/Supertone/supertonic#interactive-demo)
 [![Models](https://img.shields.io/badge/🤗%20Hugging%20Face-Models-blue)](https://huggingface.co/Supertone/supertonic)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Docker](https://img.shields.io/badge/Docker-Hub-blue?logo=docker)](https://hub.docker.com/r/neosun/supertonic-allinone)
 
 <p align="center">
   <img src="img/Supertonic_IMG_v02_4x.webp" alt="Supertonic Banner" width="600">
@@ -44,6 +46,52 @@
 - [常见问题](#常见问题)
 - [贡献指南](#贡献指南)
 - [许可证](#许可证)
+
+## 🚀 Quick Start with Docker (Recommended)
+
+The easiest way to run Supertonic is using our all-in-one Docker image:
+
+```bash
+# Pull the image
+docker pull neosun/supertonic-allinone:latest
+
+# Run the service (all IPs accessible)
+docker run -d --name supertonic -p 0.0.0.0:8501:8501 neosun/supertonic-allinone:latest
+```
+
+**Access the service:**
+- Web UI: `http://your-server-ip:8501`
+- API Docs: `http://your-server-ip:8501/api/docs`
+- Health Check: `http://your-server-ip:8501/api/health`
+
+**What's included:**
+- Supertonic TTS models (pre-loaded)
+- All dependencies
+- 4 voice styles (M1, M2, F1, F2)
+- Web UI + REST API
+
+### API Usage Example
+
+```python
+import requests
+
+# Synthesize speech
+response = requests.post(
+    "http://your-server-ip:8501/api/synthesize",
+    json={
+        "text": "Hello, this is Supertonic speaking.",
+        "voice_style": "M1",
+        "total_steps": 5
+    }
+)
+
+# Get audio file URL
+result = response.json()
+audio_url = f"http://your-server-ip:8501{result['audio_url']}"
+print(f"Audio ready: {audio_url}")
+```
+
+---
 
 ## 🚀 快速开始
 
