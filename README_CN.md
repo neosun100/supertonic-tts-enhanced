@@ -50,6 +50,24 @@ docker run -d --name supertonic \
 
 ---
 
+## 🌐 Web UI 界面
+
+访问直观的 Streamlit 界面：`http://你的服务器IP:8501`
+
+<p align="center">
+  <img src="img/ui-screenshot.png" alt="Supertonic Web UI" width="800">
+</p>
+
+**功能特性：**
+- 🎤 实时文本转语音生成
+- 🎨 4 种语音风格选择
+- ⚙️ 可调节速度和质量设置
+- 📊 生成统计信息
+- 💾 下载生成的音频文件
+- 📝 历史记录追踪
+
+---
+
 ## 📡 API 使用
 
 ### Python 示例

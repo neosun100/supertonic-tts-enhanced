@@ -50,6 +50,24 @@ docker run -d --name supertonic \
 
 ---
 
+## 🌐 Web UI
+
+Access the intuitive Streamlit interface at `http://your-server-ip:8501`:
+
+<p align="center">
+  <img src="img/ui-screenshot.png" alt="Supertonic Web UI" width="800">
+</p>
+
+**Features:**
+- 🎤 Real-time text-to-speech generation
+- 🎨 4 voice style options
+- ⚙️ Adjustable speed and quality settings
+- 📊 Generation statistics
+- 💾 Download generated audio files
+- 📝 History tracking
+
+---
+
 ## 📡 API Usage
 
 ### Python Example
