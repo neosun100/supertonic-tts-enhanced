@@ -1,0 +1,93 @@
+FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu22.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    git \
+    git-lfs \
+    libsndfile1 \
+    ffmpeg \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . /app/
+
+# Install Python dependencies
+RUN pip3 install --no-cache-dir \
+    onnxruntime-gpu==1.23.2 \
+    numpy>=1.26.0 \
+    soundfile>=0.12.1 \
+    librosa>=0.10.0 \
+    PyYAML>=6.0 \
+    fastapi>=0.104.0 \
+    uvicorn[standard]>=0.24.0 \
+    pydantic>=2.0.0 \
+    streamlit>=1.28.0 \
+    requests>=2.31.0
+
+# Create results directory and symlink
+RUN mkdir -p /app/py/results && \
+    ln -s /app/py/results /app/results
+
+# Expose both ports
+EXPOSE 8088 8501
+
+# Health check for both services
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8088/health && curl -f http://localhost:8501/_stcore/health || exit 1
+
+# Startup script
+RUN cat > /app/start.sh << 'EOF'
+#!/bin/bash
+set -e
+
+echo "=========================================="
+echo "🚀 Supertonic TTS All-in-One"
+echo "=========================================="
+
+# Start API server in background
+echo "📡 Starting API Server (port 8088)..."
+cd /app/py
+python3 tts_server_fastapi.py --host 0.0.0.0 --port 8088 --use-gpu &
+API_PID=$!
+
+# Wait for API to be ready
+echo "⏳ Waiting for API server..."
+for i in {1..30}; do
+    if curl -s http://localhost:8088/health > /dev/null 2>&1; then
+        echo "✅ API Server ready"
+        break
+    fi
+    sleep 1
+done
+
+# Start Streamlit UI
+echo "🌐 Starting Web UI (port 8501)..."
+cd /app
+streamlit run streamlit_app.py \
+    --server.port 8501 \
+    --server.address 0.0.0.0 \
+    --server.headless true \
+    --server.enableCORS false \
+    --server.enableXsrfProtection false &
+UI_PID=$!
+
+echo "=========================================="
+echo "✅ All services started"
+echo "📡 API: http://localhost:8088/docs"
+echo "🌐 UI: http://localhost:8501"
+echo "=========================================="
+
+# Wait for both processes
+wait $API_PID $UI_PID
+EOF
+
+RUN chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]

@@ -55,20 +55,34 @@ The easiest way to run Supertonic is using our all-in-one Docker image:
 # Pull the image
 docker pull neosun/supertonic-allinone:latest
 
-# Run the service (all IPs accessible)
-docker run -d --name supertonic -p 0.0.0.0:8501:8501 neosun/supertonic-allinone:latest
+# Run with GPU support (all IPs accessible)
+docker run -d --name supertonic \
+  --gpus all \
+  -p 0.0.0.0:8088:8088 \
+  -p 0.0.0.0:8501:8501 \
+  neosun/supertonic-allinone:latest
+
+# Or run without GPU (CPU only)
+docker run -d --name supertonic \
+  -p 0.0.0.0:8088:8088 \
+  -p 0.0.0.0:8501:8501 \
+  neosun/supertonic-allinone:latest
 ```
 
 **Access the service:**
 - Web UI: `http://your-server-ip:8501`
-- API Docs: `http://your-server-ip:8501/api/docs`
-- Health Check: `http://your-server-ip:8501/api/health`
+- API Docs: `http://your-server-ip:8088/docs`
+- API Health: `http://your-server-ip:8088/health`
+- UI Health: `http://your-server-ip:8501/_stcore/health`
 
 **What's included:**
 - Supertonic TTS models (pre-loaded)
 - All dependencies
 - 4 voice styles (M1, M2, F1, F2)
-- Web UI + REST API
+- FastAPI server (port 8088)
+- Streamlit Web UI (port 8501)
+- GPU support with CUDA 12.6.3
+- Health checks for both services
 
 ### API Usage Example
 
@@ -77,18 +91,51 @@ import requests
 
 # Synthesize speech
 response = requests.post(
-    "http://your-server-ip:8501/api/synthesize",
+    "http://your-server-ip:8088/synthesize",
     json={
         "text": "Hello, this is Supertonic speaking.",
-        "voice_style": "M1",
-        "total_steps": 5
+        "voice_style": "assets/voice_styles/M1.json",
+        "total_steps": 5,
+        "speed": 1.05
     }
 )
 
-# Get audio file URL
+# Get result
 result = response.json()
-audio_url = f"http://your-server-ip:8501{result['audio_url']}"
-print(f"Audio ready: {audio_url}")
+print(f"Status: {result['status']}")
+print(f"Audio file: {result['output_file']}")
+print(f"Generation time: {result['generation_time']}s")
+
+# Download audio file
+audio_url = f"http://your-server-ip:8088/{result['output_file']}"
+audio_response = requests.get(audio_url)
+with open("output.wav", "wb") as f:
+    f.write(audio_response.content)
+```
+
+### Quick Test
+
+```bash
+# Check health
+curl http://localhost:8088/health
+
+# Generate speech
+curl -X POST http://localhost:8088/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Hello, this is a test.",
+    "voice_style": "assets/voice_styles/M1.json",
+    "total_steps": 5
+  }'
+
+# Response:
+# {
+#   "status": "success",
+#   "output_file": "output_1765119221.wav",
+#   "generation_time": 0.164,
+#   "text_length": 44,
+#   "audio_duration": 3.42
+# }
 ```
 
 ---
