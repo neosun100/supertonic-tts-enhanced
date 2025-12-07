@@ -1188,6 +1188,20 @@ Copyright (c) 2025 Supertone Inc.
 
 ---
 
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=neosun100/supertonic-tts-enhanced&type=Date)](https://star-history.com/#neosun100/supertonic-tts-enhanced)
+
+## 📱 关注公众号
+
+扫码关注获取更多 AI 项目和技术分享：
+
+<p align="center">
+  <img src="https://img.aws.xin/uPic/扫码_搜索联合传播样式-标准色版.png" alt="公众号" width="300">
+</p>
+
+---
+
 <p align="center">
   <b>⭐ 如果这个项目对你有帮助，请给我们一个 Star！⭐</b>
 </p>
